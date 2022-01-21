@@ -1,6 +1,5 @@
 package com.reza.leetCode;
 
-import org.graalvm.compiler.nodes.IfNode;
 
 public class SubtreeOfAnotherTree {
 
@@ -9,22 +8,55 @@ public class SubtreeOfAnotherTree {
 
 	}
 	
-	class Solution {
+	class Solution1 {
 	    
 		public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-	    	StringBuilder stringBuilderR = new StringBuilder(); 
-	    	StringBuilder stringBuilderSR = new StringBuilder();
-	    	stringBuilderR = traverse(root, stringBuilderR); 
-	    	stringBuilderSR = traverse(subRoot, stringBuilderSR); 
-	    	return stringBuilderR.toString().contains(stringBuilderSR.toString()); 
+	    	StringBuilder stringBuilder = new StringBuilder(); 
+	    	preOrder(root, stringBuilder); 
+	    	String stringRoot = stringBuilder.toString(); 
+	    	stringBuilder = new StringBuilder(); 
+	    	preOrder(subRoot, stringBuilder);
+	    	String stringSubtree = stringBuilder.toString(); 
+	    	return stringRoot.contains(stringSubtree);  
 	    }
 	    
-	    public StringBuilder traverse(TreeNode root, StringBuilder sb) {
-			if(root != null) {
-				return sb.append(traverse(root.left, sb)).append(traverse(root.right, sb));  
+	    public void preOrder(TreeNode root, StringBuilder sb) {
+			if(root == null) {
+				sb.append("null");
+				return ; 
 			}
-	    	return sb.append("None"); 
+			sb.append("#").append(root.val); 
+			preOrder(root.left, sb); 
+			preOrder(root.right, sb); 
 		}
+	    
+	}
+	
+	class Solution2{
+		// Recursive answer
+		public boolean isSubtree(TreeNode root, TreeNode subtree) {
+			if(root == null) {
+				return subtree == null; 
+			}
+			
+			return isSame(root, subtree) || 
+					isSame(root.left, subtree) ||
+					isSame(root.right, subtree);
+			
+		}
+		private boolean isSame(TreeNode root, TreeNode subroot) {
+			if(root == null && subroot == null) {
+				return true; 
+			}
+			if(root == null || subroot == null) {
+				return false; 
+			}
+			if(root.val != subroot.val) {
+				return false; 
+			}
+			return isSame(root.left, subroot.right) && isSame(root.right, subroot.right); 
+		}
+		
 	}
 
 	public class TreeNode {
