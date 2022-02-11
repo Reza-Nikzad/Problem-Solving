@@ -15,8 +15,6 @@ class S849 {
     public int maxDistToClosest(int[] seats) {
         int leftIndex = 0 ; 
         int diff = 0 ;  
-        int leftMax = 0 ; 
-        int rightMax = 0 ; 
         for( int i = 1; i <= seats.length ; i++ ){
             
             if(i == seats.length || seats[leftIndex] != seats[i]){
