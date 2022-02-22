@@ -1,7 +1,4 @@
 package com.reza.leetCode;
-
-import java.awt.TexturePaint;
-
 import com.reza.leetCode.definition.ListNode;
 
 public class ReorderLinkedList {
@@ -95,8 +92,6 @@ public class ReorderLinkedList {
 		head.next = null; 
 		
 	}
-	
-
 }
 
 
